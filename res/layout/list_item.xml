@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  	xmlns:android="http://schemas.android.com/apk/res/android"
+  	android:layout_width="wrap_content"
+  	android:orientation="horizontal"
+
+  	android:id="@+id/itemlayout"
+  	android:layout_height="wrap_content">
+  	
+  	<ImageView android:id="@+id/caricon"
+  	    android:layout_alignParentRight="true"
+  	    android:layout_width="wrap_content" 
+  	    android:layout_height="wrap_content"/>
+  	<TextView android:id="@+id/carname"
+  	    android:textSize="25dip"
+  	    android:textColor="#ef0000"
+  	    android:layout_width="wrap_content"
+  	    android:layout_height="wrap_content"
+  	    android:layout_toLeftOf="@id/caricon"
+  	    android:layout_alignTop="@id/caricon"/>
+  	<TextView android:id="@+id/carid"
+  	    android:layout_width="fill_parent"
+  	    android:layout_height="wrap_content"
+  	    android:textSize="25dip"
+  	    android:textColor="#00f60c"/>
+  	<TextView android:id="@+id/carurl"
+  	    android:textColor="#ffffff"
+  	    android:layout_alignParentLeft="@id/caricon"
+  	    android:textSize="10dip"
+  	    android:layout_below="@id/carid"
+  	    android:layout_width="fill_parent"
+  	    android:layout_height="wrap_content"/>
+</RelativeLayout>
+
