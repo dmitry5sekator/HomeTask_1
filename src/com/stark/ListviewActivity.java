@@ -44,6 +44,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -52,6 +53,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -64,105 +66,45 @@ public class ListviewActivity extends Activity
         private static final String url = "carurl";
         private static final String icon = "caricon";
         private static final String color = "itemlayout";
-        
-        
+        public static ProgressBar progressBar;
+        public static  ArrayList<Item> xxx;
+        public static  ListView listView;
+        public static  MyArrayAdapter ad;
+        static Object g;
     @Override
     public void onCreate(Bundle savedInstanceState) 
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        ListView listView = (ListView)findViewById(R.id.list);
-        getRequest(listView);
-    }
-    public void getRequest(ListView listView){
+        listView = (ListView)findViewById(R.id.list);
+        progressBar = (ProgressBar)findViewById(R.id.progress);
         
-        HttpClient client = new DefaultHttpClient();
-        HttpGet request = new HttpGet("http://buyersguide.caranddriver.com/api/feed/?mode=json&q=make");
-        try{
-            HttpResponse response = client.execute(request);
-            //txtResult.setText(request(response));
-            String begin = request(response);
-            examineJSONFile(listView,begin);
-            //txtResult.setText(request(response));
-        }catch(Exception ex){
-            //txtResult.setText("Failed!");
-        }
+        g = this;
+        
+        progressBar.setProgress(0);
+       // new MyTask().execute();
+      
+       new MyTask().execute();
+        //getRequest(listView);
+        
+//       progressBar = (ProgressBar)findViewById(R.id.progress);
+//       progressBar = (ProgressBar)findViewById(R.id.progress);
+//       progressBar = (ProgressBar)findViewById(R.id.progress);
+        
+        
+        
+        
+        
+        
+//        listView.setAdapter(ad);
         
     }
-    public static String request(HttpResponse response){
-        String result = "";
-        try{
-            InputStream in = response.getEntity().getContent();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-            StringBuilder str = new StringBuilder();
-            String line = null;
-            while((line = reader.readLine()) != null){
-                str.append(line + "\n");
-            }
-            in.close();
-            result = str.toString();
-        }catch(Exception ex){
-            result = "Error";
-        }
-        return result;
-    }
-    void examineJSONFile(ListView listView,String str)
+    public static void startUpList()
     {
-    	try
-    	{
-    		String x = "";
-    		JSONArray entries = new JSONArray(str.substring(str.indexOf("[")));
-    		TreeMap <String,Item> myMap = new TreeMap<String,Item>();
-    		ArrayList <HashMap<String, Object>> myBooks = new ArrayList<HashMap<String,Object>>();
-    		TreeMap<Integer,Item> myB = new TreeMap<Integer,Item>();
-    		HashMap<String, Object> hm;
-    		for (int i=0;i<entries.length();i++)
-    		{
-    			JSONObject post = entries.getJSONObject(i);
-    			myB.put(post.getInt("id"), new Item(post.getString("name"),post.getString("url"),R.drawable.fuck));
-    		}
-    		for(Entry<Integer, Item> entry : myB.entrySet()) 
-    		{
-    			Integer key = entry.getKey();
-    			Item value = entry.getValue();
-    			hm = new HashMap<String, Object>();
-    			hm.put(id, key);
-      	        hm.put(name, value.getName());
-      	        hm.put(url, value.getUrl());
-      	        hm.put(icon, value.getIcon());
-      	        myBooks.add(hm);
-    		}
-    		SimpleAdapter adapter = new SimpleAdapter(this, myBooks, R.layout.list_item,
- 	    		   new String[]{id,name,url,icon}, 
- 	    		   new int[]{R.id.carid, R.id.carname,R.id.carurl,R.id.caricon});
-    		listView.setAdapter(adapter);
-    	}
-    	catch (Exception je)
-    	{
-    		
-    	}
+    	ListviewActivity.progressBar.setVisibility(ProgressBar.GONE);
+    	ListviewActivity.ad = new MyArrayAdapter((Context)g,R.layout.list_item,xxx);
+    	ListviewActivity.listView.setAdapter(ListviewActivity.ad);
     }
-    private Bitmap getDrawableFromUrl(final String url)
-    {
-    	Bitmap bmImg = null;
-    	URL myFileUrl =null; 
-    	Drawable d = null;
-    	try 
-    	{
-    		myFileUrl= new URL(url);
-    		HttpURLConnection conn= (HttpURLConnection)myFileUrl.openConnection();
-    		conn.setDoInput(true);
-    		conn.connect();
-    		InputStream is = conn.getInputStream();
-    		bmImg = BitmapFactory.decodeStream(is);
-    		d =new BitmapDrawable(bmImg);
-    		//ImageView view = (ImageView)findViewById(R.id.caricon);
-    		//view.setImageBitmap(bmImg);
-    	 }
-    	catch (IOException e) 
-    	{
-    		e.printStackTrace();
-    	}
-    	return bmImg;
-	}
+  
+    
 }
