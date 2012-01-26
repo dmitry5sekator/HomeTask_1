@@ -50,6 +50,7 @@ import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -60,16 +61,14 @@ import android.widget.TextView;
 
 public class ListviewActivity extends Activity 
 {
-        //private ArrayList <HashMap<String, Object>> myBooks = new ArrayList<HashMap<String,Object>>();
-        private static final String id = "carid";
-        private static final String name = "carname";
-        private static final String url = "carurl";
-        private static final String icon = "caricon";
-        private static final String color = "itemlayout";
         public static ProgressBar progressBar;
         public static  ArrayList<Item> xxx;
         public static  ListView listView;
+        public static Button button;
+        public static EditText editText;
+        
         public static  MyArrayAdapter ad;
+        
         static Object g;
     @Override
     public void onCreate(Bundle savedInstanceState) 
@@ -78,33 +77,38 @@ public class ListviewActivity extends Activity
         setContentView(R.layout.main);
         listView = (ListView)findViewById(R.id.list);
         progressBar = (ProgressBar)findViewById(R.id.progress);
-        
+        button = (Button)findViewById(R.id.Button);
+        editText = (EditText)findViewById(R.id.EditText);
         g = this;
-        
         progressBar.setProgress(0);
-       // new MyTask().execute();
-      
        new MyTask().execute();
-        //getRequest(listView);
-        
-//       progressBar = (ProgressBar)findViewById(R.id.progress);
-//       progressBar = (ProgressBar)findViewById(R.id.progress);
-//       progressBar = (ProgressBar)findViewById(R.id.progress);
-        
-        
-        
-        
-        
-        
-//        listView.setAdapter(ad);
-        
+       button.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				String request = editText.getText().toString();
+				ArrayList <Item> temp = new ArrayList<Item>();
+				for(int i = 0;i < xxx.size();i++)
+				{
+					if(xxx.get(i).getName().indexOf(request) != -1)
+					{
+						temp.add(xxx.get(i));
+					}
+				}
+				MyArrayAdapter temp_adapter = new MyArrayAdapter((Context)g,R.layout.list_item,temp);
+				listView.setAdapter(temp_adapter);
+				
+			}
+		});
     }
     public static void startUpList()
     {
-    	ListviewActivity.progressBar.setVisibility(ProgressBar.GONE);
-    	ListviewActivity.ad = new MyArrayAdapter((Context)g,R.layout.list_item,xxx);
-    	ListviewActivity.listView.setAdapter(ListviewActivity.ad);
+    	progressBar.setVisibility(ProgressBar.GONE);
+    	ad = new MyArrayAdapter((Context)g,R.layout.list_item,xxx);
+    	listView.setAdapter(ListviewActivity.ad);
+    	button.setVisibility(android.widget.Button.VISIBLE);
+    	button.setText("Find cars");
+    	editText.setVisibility(android.widget.EditText.VISIBLE);
     }
-  
-    
 }

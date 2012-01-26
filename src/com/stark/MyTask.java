@@ -33,9 +33,6 @@ public class MyTask extends AsyncTask<Void,Integer, ArrayList<Item>>{
 		// TODO Auto-generated method stub
 		String source = getData();
 		ArrayList<Item> items = new ArrayList<Item>();
-		////////////////////////
-		////////////////////////
-		//////////////////////////
 		try
     	{
     		String x = "";
@@ -90,12 +87,8 @@ public String getData(){
         HttpGet request = new HttpGet("http://buyersguide.caranddriver.com/api/feed/?mode=json&q=make");
         try{
             HttpResponse response = client.execute(request);
-            //txtResult.setText(request(response));
             begin = request(response);
-            //examineJSONFile(begin);
-            //txtResult.setText(request(response));
         }catch(Exception ex){
-            //txtResult.setText("Failed!");
         	return "";
         }
         return begin;
@@ -131,8 +124,6 @@ public String getData(){
     		InputStream is = conn.getInputStream();
     		bmImg = BitmapFactory.decodeStream(is);
     		d =new BitmapDrawable(bmImg);
-    		//ImageView view = (ImageView)findViewById(R.id.caricon);
-    		//view.setImageBitmap(bmImg);
     	 }
     	catch (IOException e) 
     	{

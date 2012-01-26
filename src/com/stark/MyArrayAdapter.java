@@ -15,9 +15,6 @@ import android.widget.TextView;
 
 public class MyArrayAdapter extends ArrayAdapter
 {
-	/////////////
-	
-	//////////////
 	ViewHolder holder;
 	private final Context context;
 	private ArrayList<Item> items;
@@ -70,34 +67,4 @@ class ViewHolder {
 	   public TextView url;
 	   
 	   public ImageView icon;
-	   
-	   
-	   
 	}
-
-//private ArrayList<Order> items;
-//
-//public OrderAdapter(Context context, int textViewResourceId, ArrayList<Order> items) {
-//        super(context, textViewResourceId, items);
-//        this.items = items;
-//}
-//
-//@Override
-//public View getView(int position, View convertView, ViewGroup parent) {
-//        View v = convertView;
-//        if (v == null) {
-//            LayoutInflater vi = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//            v = vi.inflate(R.layout.row, null);
-//        }
-//        Order o = items.get(position);
-//        if (o != null) {
-//                TextView tt = (TextView) v.findViewById(R.id.toptext);
-//                TextView bt = (TextView) v.findViewById(R.id.bottomtext);
-//                if (tt != null) {
-//                      tt.setText("Name: "+o.getOrderName());                            }
-//                if(bt != null){
-//                      bt.setText("Status: "+ o.getOrderStatus());
-//                }
-//        }
-//        return v;
-//}
