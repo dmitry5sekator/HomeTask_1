@@ -3,10 +3,19 @@
 android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
+    <TextView android:id="@+id/wait"
+  	    android:layout_width="fill_parent"
+  	    android:layout_height="wrap_content"
+  	    android:textSize="15dip"
+  	    
+  	    android:text="Loading data from the server..."
+  	    android:textColor="#00f60c"
+  	    />
 <ProgressBar
     style="@android:style/Widget.ProgressBar.Horizontal"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
+    android:layout_below="@id/wait"
     android:id="@+id/progress">
 </ProgressBar>
 
@@ -14,12 +23,6 @@ android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:visibility="gone"/>
-
-<Button android:id="@+id/Button"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:visibility="gone"
-    android:onClick="ButtonOnClick"/>
 
 <ListView android:id="@+id/list"
     android:layout_width="fill_parent"

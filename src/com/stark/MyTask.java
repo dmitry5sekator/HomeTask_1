@@ -80,6 +80,7 @@ public class MyTask extends AsyncTask<Void,Integer, ArrayList<Item>>{
 	super.onPostExecute(result);
 	ListviewActivity.xxx = result;
 	ListviewActivity.startUpList();
+	ListviewActivity.temp.setVisibility(android.widget.TextView.GONE);
 	}
 public String getData(){
 		String begin="";
